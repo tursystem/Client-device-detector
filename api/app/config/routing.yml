@@ -1,0 +1,9 @@
+#device_core:
+#    resource: "@DeviceCoreBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
+
+rest :
+  type : rest
+  resource : "routing_rest.yml"
+  prefix : /api/v1

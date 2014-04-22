@@ -1,0 +1,4 @@
+devices :
+  type: rest
+  resource:     "DeviceCoreBundle:Device"
+  name_prefix:  api_

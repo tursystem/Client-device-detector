@@ -1,0 +1,13 @@
+api/web/bundles/
+api/app/bootstrap.php.cache
+api/app/cache/*
+api/app/config/parameters.yml
+api/app/logs/*
+api/!app/cache/.gitkeep
+api/!app/logs/.gitkeep
+api/build/
+api/vendor/
+api/bin/
+api/composer.phar
+.idea
+.DS_Store
