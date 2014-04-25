@@ -54,6 +54,7 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                             if (!DeviceManager.deviceDetected) {
                                 require(["apps/devices/new/new_view"], function (NewView) {
                                     var newDevice = DeviceManager.request("device:entity:new");
+                                    DeviceManager.deviceDetected = true;
                                     newDevice.set("type", userDevice.type);
                                     newDevice.set("subType", userDevice.subType);
                                     newDevice.set("os", userDevice.os);

@@ -1,6 +1,7 @@
 define(["app"], function (DeviceManager) {
     "use strict";
     DeviceManager.module("Entities", function (Entities, DeviceManager, Backbone, Marionette, $, _) {
+
         Entities.Device = Backbone.Model.extend({
 
             urlRoot: "/devices",
@@ -18,7 +19,28 @@ define(["app"], function (DeviceManager) {
         Entities.DeviceCollection = Backbone.Collection.extend({
             url: "/devices",
             model: Entities.Device,
-            comparator: "type"
+
+            sortAttribute: "type",
+            sortDirection: 1,
+
+            sortDevices: function (attr) {
+                this.sortAttribute = attr;
+                this.sort();
+            },
+
+            comparator: function(a, b) {
+                var a = a.get(this.sortAttribute),
+                    b = b.get(this.sortAttribute);
+
+                //if (a == b)
+                    //return 0;
+
+                if (this.sortDirection == 1) {
+                    return a > b ? 1 : -1;
+                } else {
+                    return a < b ? 1 : -1;
+                }
+            }
         });
 
         var API = {

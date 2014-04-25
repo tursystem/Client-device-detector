@@ -37,3 +37,7 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+.table th span { display: inline-block; margin-left: 5px; color: darkgray}
+.table th div:hover {cursor: pointer;}
+.icon-none { visibility: hidden; }

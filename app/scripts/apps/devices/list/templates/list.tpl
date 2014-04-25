@@ -1,11 +1,11 @@
 <thead>
 <tr>
-    <th>Type</th>
-    <th>OS</th>
-    <th>Browser</th>
-    <th>Screen height</th>
-    <th>Screen width</th>
-    <th>Screen orientation</th>
+    <th column="type"><div>Type</div></th>
+    <th column="os"><div>OS</div></th>
+    <th column="browser"><div>Browser</div></th>
+    <th column="scr_height"><div>Screen height</div></th>
+    <th column="scr_width"><div>Screen width</div></th>
+    <th column="orientation"><div>Screen orientation</div></th>
     <th></th>
 </tr>
 </thead>
