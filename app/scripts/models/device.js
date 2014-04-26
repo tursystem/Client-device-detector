@@ -1,4 +1,4 @@
-define(["app"], function (DeviceManager) {
+define(["app", "paginator"], function (DeviceManager, Paginator) {
     "use strict";
     DeviceManager.module("Entities", function (Entities, DeviceManager, Backbone, Marionette, $, _) {
 
@@ -16,12 +16,25 @@ define(["app"], function (DeviceManager) {
             }
         });
 
-        Entities.DeviceCollection = Backbone.Collection.extend({
-            url: "/devices",
+        //Entities.DeviceCollection = Backbone.Collection.extend({
+        Entities.DeviceCollection = Backbone.Paginator.clientPager.extend({
+            //url: "/devices",
             model: Entities.Device,
 
             sortAttribute: "type",
             sortDirection: 1,
+
+            paginator_core: {
+                dataType: "json",
+                url: "/devices"
+            },
+
+            paginator_ui: {
+                firstPage: 1,
+                currentPage: 1,
+                perPage: 10,
+                pagesInRange: 2
+            },
 
             sortDevices: function (attr) {
                 this.sortAttribute = attr;
@@ -44,16 +57,34 @@ define(["app"], function (DeviceManager) {
         });
 
         var API = {
-            getDeviceEntities: function () {
-                var devices = new Entities.DeviceCollection();
+//            getDeviceEntities: function () {
+//                var devices = new Entities.DeviceCollection();
+//                var defer = $.Deferred();
+//                devices.fetch({
+//                    success: function (data) {
+//                        defer.resolve(data);
+//                    }
+//                });
+//                var promise = defer.promise();
+//                return promise;
+//            },
+
+            getDeviceEntities: function(options){
+                var devices = new Entities.DeviceCollection([], {});// parameters: options.parameters
+                //delete options.parameters;
                 var defer = $.Deferred();
-                devices.fetch({
-                    success: function (data) {
-                        defer.resolve(data);
-                    }
+                options || (options = {});
+                // for paginator, see https://github.com/backbone-paginator/backbone.paginator/pull/180
+                options.reset = true;
+                defer.then(options.success, options.error);
+                var response = devices.fetch(_.omit(options, 'success', 'error'));
+                response.done(function(){
+                    defer.resolveWith(response, [devices]);
                 });
-                var promise = defer.promise();
-                return promise;
+                response.fail(function(){
+                    defer.rejectWith(response, arguments);
+                });
+                return defer.promise();
             },
 
             getDeviceEntity: function (deviceId) {

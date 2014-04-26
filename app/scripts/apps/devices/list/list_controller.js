@@ -15,35 +15,37 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 
                     require(["models/filter"], function (FilteredCollection) {
                         $.when(fetchingDevices).done(function (devices) {
-                            var filteredDevices = DeviceManager.Entities.FilteredCollection({
-                                collection: devices,
-                                filterFunction: function (filterCriterion) {
-                                    var criterion = filterCriterion.toLowerCase();
-                                    return function (device) {
-                                        if (device.get('type').toLowerCase().indexOf(criterion) !== -1
-                                            || device.get('subType').toLowerCase().indexOf(criterion) !== -1
-                                            || device.get('os').toLowerCase().indexOf(criterion) !== -1
-                                            || device.get('orientation').toLowerCase().indexOf(criterion) !== -1
-                                            || device.get('browser').toLowerCase().indexOf(criterion) !== -1) {
-                                            return device;
-                                        }
-                                    };
-                                }
-                            });
+//                            var filteredDevices = DeviceManager.Entities.FilteredCollection({
+//                                collection: devices,
+//                                filterFunction: function (filterCriterion) {
+//                                    var criterion = filterCriterion.toLowerCase();
+//                                    return function (device) {
+//                                        if (device.get('type').toLowerCase().indexOf(criterion) !== -1
+//                                            || device.get('subType').toLowerCase().indexOf(criterion) !== -1
+//                                            || device.get('os').toLowerCase().indexOf(criterion) !== -1
+//                                            || device.get('orientation').toLowerCase().indexOf(criterion) !== -1
+//                                            || device.get('browser').toLowerCase().indexOf(criterion) !== -1) {
+//                                            return device;
+//                                        }
+//                                    };
+//                                }
+//                            });
 
                             if (criterion) {
-                                filteredDevices.filter(criterion);
+//                                filteredDevices.filter(criterion);
                                 devicesListPanel.once("show", function () {
                                     devicesListPanel.triggerMethod("set:filter:criterion", criterion);
                                 });
                             }
 
                             var devicesListView = new View.Devices({
-                                collection: filteredDevices
+//                                collection: filteredDevices
+                                collection: devices
                             });
 
                             devicesListPanel.on("devices:filter", function (filterCriterion) {
-                                filteredDevices.filter(filterCriterion);
+                                devices.filter(filterCriterion);
+//                                filteredDevices.filter(filterCriterion);
                                 DeviceManager.trigger("devices:filter", filterCriterion);
                             });
 
