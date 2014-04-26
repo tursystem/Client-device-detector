@@ -38,6 +38,7 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                                 });
                             }
 
+                            devices.goTo(1);
                             var devicesListView = new View.Devices({
 //                                collection: filteredDevices
                                 collection: devices
