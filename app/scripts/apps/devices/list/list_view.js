@@ -87,11 +87,15 @@ define([
 
 
             initialize: function () {
-                this.listenTo(this.collection, "sort reset", function () {
-                    console.log("Sort RESET");
+                this.listenTo(this.collection, "reset", function () {
                     this.appendHtml = function (collectionView, itemView, index) {
                         collectionView.$el.append(itemView.el);
                     }
+                });
+
+                this.listenTo(this.collection, "sort", function () {
+                    this.render();
+
                 });
             },
 
@@ -116,7 +120,6 @@ define([
                 var $el = $(e.currentTarget),
                     ns = $el.attr('column'),
                     cs = this.collection.sortAttribute;
-                    console.log('ns:' + ns);
 
                 // Toggle sort if the current column is sorted
                 if (ns == cs) {
@@ -135,7 +138,6 @@ define([
                     $el.find('span').removeClass('icon-none').addClass(this.sortDnIcon);
                 }
 
-                // Now sort the collection
                 this.collection.sortDevices(ns);
             }
         });
