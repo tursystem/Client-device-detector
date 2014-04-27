@@ -100,12 +100,7 @@ class DeviceController extends Controller
             $em->persist($device);
             $em->flush();
 
-        //$response = new Response();
-        //$response->setStatusCode(200);
-            return new JsonResponse(['result' => true, 'message' => "Device has bin successfully saved"], 200);
-        //);
-
-        //return $response;
+            return new JsonResponse(['result' => true, 'id'=>$device->getId(), 'message' => "Device has bin successfully saved"], 200);
         }
 
         return 'TEST';
