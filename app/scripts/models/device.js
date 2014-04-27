@@ -21,6 +21,12 @@ define(["app", "paginator"], function (DeviceManager, Paginator) {
             //url: "/devices",
             model: Entities.Device,
 
+            initialize: function(options){
+                options || (options = {});
+                var params = options.parameters || { page: 1 };
+                this.parameters = new Backbone.Model(params);
+            },
+
             sortAttribute: "type",
             sortDirection: 1,
 
@@ -34,6 +40,11 @@ define(["app", "paginator"], function (DeviceManager, Paginator) {
                 currentPage: 1,
                 perPage: 10,
                 pagesInRange: 2
+            },
+
+            paginate: function(page) {
+                this.goTo(parseInt(this.parameters.get("page"), 10));
+                this.trigger("page:change:after");
             },
 
             sortDevices: function (attr) {

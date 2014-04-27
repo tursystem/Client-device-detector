@@ -45,9 +45,23 @@ define([
             template: paginationTpl,
 
             initialize: function(options){
-                console.log("options:");
-                console.log(options);
                 this.paginatedCollection = options.paginatedCollection;
+                this.listenTo(this.paginatedCollection, "page:change:after", this.render);
+            },
+
+            events: {
+                "click a[class=navigatable]": "navigateToPage"
+            },
+
+            onRender: function() {
+                console.log("I'm rendered!");
+            },
+
+            navigateToPage: function(e){
+                e.preventDefault();
+                var page = parseInt($(e.target).data("page"), 10);
+                this.paginatedCollection.parameters.set("page", page);
+                this.trigger("page:change", page);
             },
 
             serializeData: function(){

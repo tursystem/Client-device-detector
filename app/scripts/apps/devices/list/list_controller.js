@@ -51,11 +51,11 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                                 DeviceManager.trigger("devices:filter", filterCriterion);
                             });
 
-//                            devicesListDevices.on("devices:filter", function (filterCriterion) {
-//                                console.log("devicesListDevices FILTER");
-//                                filteredDevices.filter(filterCriterion);
-//                                DeviceManager.trigger("devices:filter", filterCriterion);
-//                            });
+                            devicesListPagination.on("page:change", function (page) {
+                                //DeviceManager.trigger("page:change", page);
+                                devices.paginate(page);
+                                //devices.trigger("page:change", page);
+                            });
 
                             devicesListLayout.on("show", function () {
                                 devicesListLayout.filterRegion.show(devicesListPanel);

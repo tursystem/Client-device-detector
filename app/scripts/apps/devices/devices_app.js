@@ -44,6 +44,11 @@ define(["app"], function (DeviceManager) {
             API.listDevices();
         });
 
+        DeviceManager.on("page:change", function (page) {
+            console.log("Page has Changed!!!");
+            API.listDevices(page);
+        });
+
         DeviceManager.on("devices:filter", function (criterion) {
             if (criterion) {
                 DeviceManager.navigate("devices/filter/criterion:" + criterion);
