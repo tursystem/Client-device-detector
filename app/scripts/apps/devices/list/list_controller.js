@@ -31,7 +31,7 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 //                            });
 
                             if (criterion) {
-//                                filteredDevices.filter(criterion);
+                                devices.parameters.set({ criterion: criterion });
                                 devicesListPanel.once("show", function () {
                                     devicesListPanel.triggerMethod("set:filter:criterion", criterion);
                                 });
@@ -41,20 +41,22 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 
                             devices.goTo(1);
                             var devicesListView = new View.Devices({
-//                                collection: filteredDevices
-                                collection: devices
+                                collection: devices,
+                                mainView: List.Devices
                             });
 
                             devicesListPanel.on("devices:filter", function (filterCriterion) {
-                                devices.filter(filterCriterion);
-//                                filteredDevices.filter(filterCriterion);
+                                //devices.filter(filterCriterion);
+                                devices.parameters.set({
+                                    page: 1,
+                                    criterion: filterCriterion
+                                });
                                 DeviceManager.trigger("devices:filter", filterCriterion);
                             });
 
                             devicesListPagination.on("page:change", function (page) {
                                 //DeviceManager.trigger("page:change", page);
                                 devices.paginate(page);
-                                //devices.trigger("page:change", page);
                             });
 
                             devicesListLayout.on("show", function () {

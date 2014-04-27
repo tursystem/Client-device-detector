@@ -25,6 +25,15 @@ define(["app", "paginator"], function (DeviceManager, Paginator) {
                 options || (options = {});
                 var params = options.parameters || { page: 1 };
                 this.parameters = new Backbone.Model(params);
+                var self = this;
+                this.listenTo(this.parameters, "change", function(model){
+                    console.log("Call filter");
+                    if(_.has(model.changed, "criterion")){
+                        self.setFilter(["type", "subType", "os", "orientation", "browser"],
+                        self.parameters.get("criterion"));
+                    }
+                    self.trigger("page:change:after");
+                });
             },
 
             sortAttribute: "type",
