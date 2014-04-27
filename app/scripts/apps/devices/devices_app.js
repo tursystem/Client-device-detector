@@ -45,7 +45,6 @@ define(["app"], function (DeviceManager) {
         });
 
         DeviceManager.on("page:change", function (page) {
-            console.log("Page has Changed!!!");
             API.listDevices(page);
         });
 

@@ -14,22 +14,6 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 
                     require(["models/filter"], function (FilteredCollection) {
                         $.when(fetchingDevices).done(function (devices) {
-//                            var filteredDevices = DeviceManager.Entities.FilteredCollection({
-//                                collection: devices,
-//                                filterFunction: function (filterCriterion) {
-//                                    var criterion = filterCriterion.toLowerCase();
-//                                    return function (device) {
-//                                        if (device.get('type').toLowerCase().indexOf(criterion) !== -1
-//                                            || device.get('subType').toLowerCase().indexOf(criterion) !== -1
-//                                            || device.get('os').toLowerCase().indexOf(criterion) !== -1
-//                                            || device.get('orientation').toLowerCase().indexOf(criterion) !== -1
-//                                            || device.get('browser').toLowerCase().indexOf(criterion) !== -1) {
-//                                            return device;
-//                                        }
-//                                    };
-//                                }
-//                            });
-
                             if (criterion) {
                                 devices.parameters.set({ criterion: criterion });
                                 devicesListPanel.once("show", function () {
@@ -46,7 +30,6 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                             });
 
                             devicesListPanel.on("devices:filter", function (filterCriterion) {
-                                //devices.filter(filterCriterion);
                                 devices.parameters.set({
                                     page: 1,
                                     criterion: filterCriterion
@@ -55,7 +38,6 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                             });
 
                             devicesListPagination.on("page:change", function (page) {
-                                //DeviceManager.trigger("page:change", page);
                                 devices.paginate(page);
                             });
 

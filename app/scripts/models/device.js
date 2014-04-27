@@ -27,7 +27,6 @@ define(["app", "paginator"], function (DeviceManager, Paginator) {
                 this.parameters = new Backbone.Model(params);
                 var self = this;
                 this.listenTo(this.parameters, "change", function(model){
-                    console.log("Call filter");
                     if(_.has(model.changed, "criterion")){
                         self.setFilter(["type", "subType", "os", "orientation", "browser"],
                         self.parameters.get("criterion"));

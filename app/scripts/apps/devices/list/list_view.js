@@ -53,10 +53,6 @@ define([
                 "click a[class=navigatable]": "navigateToPage"
             },
 
-            onRender: function() {
-                console.log("I'm rendered!");
-            },
-
             navigateToPage: function(e){
                 e.preventDefault();
                 var page = parseInt($(e.target).data("page"), 10);
