@@ -2,10 +2,11 @@ define([
     "app",
     "tpl!apps/devices/list/templates/layout.tpl",
     "tpl!apps/devices/list/templates/filter.tpl",
+    "tpl!apps/devices/list/templates/pagination.tpl",
     "tpl!apps/devices/list/templates/none.tpl",
     "tpl!apps/devices/list/templates/list.tpl",
     "tpl!apps/devices/list/templates/list_item.tpl"
-], function (DeviceManager, layoutTpl, filterlTpl, noneTpl, listTpl, listItemTpl) {
+], function (DeviceManager, layoutTpl, filterlTpl, paginationTpl, noneTpl, listTpl, listItemTpl) {
     "use strict";
     DeviceManager.module("DevicesApp.List.View", function (View, DeviceManager, Backbone, Marionette, $, _) {
         View.Layout = Marionette.Layout.extend({
@@ -13,6 +14,7 @@ define([
 
             regions: {
                 filterRegion: "#filter-region",
+                paginationRegion: "#pagination-region",
                 devicesRegion: "#devices-region"
             }
         });
@@ -36,6 +38,20 @@ define([
 
             onSetFilterCriterion: function (criterion) {
                 this.ui.criterion.val(criterion);
+            }
+        });
+
+        View.Pagination = Marionette.ItemView.extend({
+            template: paginationTpl,
+
+            initialize: function(options){
+                console.log("options:");
+                console.log(options);
+                this.paginatedCollection = options.paginatedCollection;
+            },
+
+            serializeData: function(){
+                return _.clone(this.paginatedCollection.info());
             }
         });
 
@@ -137,7 +153,6 @@ define([
                 } else {
                     $el.find('span').removeClass('icon-none').addClass(this.sortDnIcon);
                 }
-
                 this.collection.sortDevices(ns);
             }
         });

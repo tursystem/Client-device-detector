@@ -11,7 +11,6 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 
                     var devicesListLayout = new View.Layout();
                     var devicesListPanel = new View.Panel();
-                    //var devicesListDevices = new View.Devices();
 
                     require(["models/filter"], function (FilteredCollection) {
                         $.when(fetchingDevices).done(function (devices) {
@@ -38,6 +37,8 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                                 });
                             }
 
+                            var devicesListPagination = new View.Pagination({paginatedCollection: devices});
+
                             devices.goTo(1);
                             var devicesListView = new View.Devices({
 //                                collection: filteredDevices
@@ -58,6 +59,7 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
 
                             devicesListLayout.on("show", function () {
                                 devicesListLayout.filterRegion.show(devicesListPanel);
+                                devicesListLayout.paginationRegion.show(devicesListPagination);
                                 devicesListLayout.devicesRegion.show(devicesListView);
                             });
 
