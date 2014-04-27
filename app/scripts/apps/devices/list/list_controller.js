@@ -63,7 +63,8 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                                     });
 
                                     view.on("form:submit", function (data) {
-                                        if (newDevice.save(data)) {
+//                                        if (newDevice.save(data)) {
+                                        $.when(newDevice.save(data)).done(function () {
                                             devices.add(newDevice);
                                             view.trigger("dialog:close");
                                             var newDeviceView = devicesListView.children.findByModel(newDevice);
@@ -71,7 +72,7 @@ define(["app", "apps/devices/list/list_view", "ext/detector"], function (DeviceM
                                             if (newDeviceView) {
                                                 newDeviceView.flash("success");
                                             }
-                                        }
+                                        });
                                     });
 
                                     DeviceManager.dialogRegion.show(view);
